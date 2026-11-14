@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Registry dApp (Truffle + Ganache)</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- ethers.js library (v6) -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <img src="logo.svg" alt="Product Registry logo">
+    <h1>Product Registry dApp</h1>
+    <p>MG3012 Assignment 3: deployed with Truffle on a local Ganache blockchain</p>
+  </header>
+
+  <main>
+
+    <section class="card">
+      <h2>About this dApp</h2>
+      <p>
+        This is the Product Registry from Assignment 2, now compiled and deployed with
+        <strong>Truffle</strong> to a local <strong>Ganache</strong> blockchain. A second contract,
+        <strong>ProductReviews</strong>, lets customers give products a 1 to 5 star rating.
+      </p>
+      <h3>How to use it</h3>
+      <ol>
+        <li>Make sure Ganache is running and you ran <code>truffle migrate</code>.</li>
+        <li>Click <strong>Connect MetaMask</strong>. It will switch to the Ganache network.</li>
+        <li>Add products, update prices, and review products using another account.</li>
+      </ol>
+      <p>
+        Useful links:
+        <a href="https://archive.trufflesuite.com/docs/truffle/" target="_blank">Truffle docs</a> ·
+        <a href="https://archive.trufflesuite.com/ganache/" target="_blank">Ganache</a> ·
+        <a href="https://docs.ethers.org/v6/" target="_blank">ethers.js docs</a>
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>1. Wallet &amp; contracts</h2>
+      <button id="connectBtn">Connect MetaMask</button>
+      <p>Account: <code id="account">not connected</code></p>
+      <p>Network: <code id="network">-</code></p>
+      <ul>
+        <li>ProductRegistry: <code id="registryAddr">-</code></li>
+        <li>ProductReviews: <code id="reviewsAddr">-</code></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>2. Add a product (write)</h2>
+      <div class="row">
+        <input id="productName" type="text" placeholder="Product name, e.g. Laptop Bag">
+        <input id="productPrice" type="number" min="1" placeholder="Price in PKR, e.g. 2500">
+        <button id="addBtn" disabled>Add Product</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3. Update a price (write)</h2>
+      <div class="row">
+        <input id="updateId" type="number" min="0" placeholder="Product ID, e.g. 0">
+        <input id="updatePriceInput" type="number" min="1" placeholder="New price in PKR">
+        <button id="updateBtn" disabled>Update Price</button>
+      </div>
+      <p class="muted">Only the account that added a product can change its price.</p>
+    </section>
+
+    <section class="card">
+      <h2>4. Review a product (second contract)</h2>
+      <div class="row">
+        <input id="reviewId" type="number" min="0" placeholder="Product ID, e.g. 0">
+        <select id="reviewRating">
+          <option value="5">★★★★★ (5)</option>
+          <option value="4">★★★★ (4)</option>
+          <option value="3">★★★ (3)</option>
+          <option value="2">★★ (2)</option>
+          <option value="1">★ (1)</option>
+        </select>
+        <input id="reviewComment" type="text" placeholder="Comment, e.g. Great quality">
+        <button id="reviewBtn" disabled>Submit Review</button>
+      </div>
+      <p class="muted">Switch to a different MetaMask account to review: sellers can't review their own products.</p>
+    </section>
+
+    <section class="card">
+      <h2>5. Products on the blockchain (read)</h2>
+      <button id="refreshBtn" disabled>Refresh List</button>
+      <p>Total products: <strong id="productCount">-</strong></p>
+      <ul id="productList">
+        <li class="muted">Connect your wallet to load products.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Transaction status</h2>
+      <div id="status" class="status">Waiting for you to connect MetaMask...</div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Built with Solidity, Truffle, Ganache, MetaMask and ethers.js</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
